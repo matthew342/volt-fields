@@ -28,6 +28,10 @@ module Fields
     def errors
       model.marked_errors[@field_name]
     end
+    
+    def field_name
+      @field_name
+    end
 
     # When a field goes out of focus, then we want to start checking a field
     def blur
