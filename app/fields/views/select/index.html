@@ -1,23 +1,26 @@
 <:Body>
   <div class="form-group {{ if errors }}has-error{{ elsif marked }}has-success{{ end }} has-feedback">
     {{ if label }}
-      <label class="control-label">{{ label }}</label>
+    <label class="control-label">{{ label }}</label>
     {{ end }}
-    <select value="{{ attrs.value }}" class="form-control">
-      {{ if attrs.value.nil? }}
-        <option value="" selected>
-        </option>
-      {{ end }}
-      {{ options.each do |option| }}
+    <div class="fg-line">
+      <div class="select">
+        <select value="{{ attrs.value }}" class="form-control">
+          {{ if attrs.value.nil? }}
+          <option value="" selected>
+          </option>
+          {{ end }} {{ options.each do |option| }}
           <option value="{{ option[:value] }}">
             {{ option[:label] }}
           </option>
-      {{ end }}
-    </select>
-    {{ if errors }}
-      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-      <span class="control-label errors">{{ (errors || []).join(', ') }}</span>
-    {{ elsif marked }}
-      <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-    {{ end }}
+          {{ end }}
+        </select>
+        {{ if errors }}
+        <span class="md md-close form-control-feedback"></span>
+        <span class="control-label errors">{{ (errors || []).join(', ') }}</span>
+        {{ elsif marked }}
+        <span class="md md-check form-control-feedback"></span>
+        {{ end }}
+      </div>
+    </div>
   </div>

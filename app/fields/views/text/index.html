@@ -1,13 +1,15 @@
 <:Body>
-  <div class="form-group {{ if errors }}has-error{{ elsif marked }}has-success{{ end }} has-feedback">
-    {{ if label.present? }}
-      <label class="control-label">{{ label }}</label>
+  <div class="{{ if attrs.prepend_class }} input-group {{ else }} form-group {{ end }}{{ if errors }}has-error{{ elsif marked }}has-success{{ end }} has-feedback">
+    {{ if attrs.prepend_class }}
+      <:fields:addons:prepend prepend_class="{{ attrs.prepend_class }}"/>
     {{ end }}
-    <input type="{{ @type }}" value="{{ attrs.value }}" e-focusout="blur" class="form-control" placeholder="{{ attrs.placeholder }}" />
+    <div class="fg-line">
+      <input type="{{ @type }}" value="{{ attrs.value }}" e-focusout="blur" class="form-control" placeholder="{{ attrs.placeholder }}" />
+    </div>
     {{ if errors }}
-      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-      <span class="control-label errors">{{ (errors || []).join(', ') }}</span>
+      <small class="help-block {{ if attrs.prepend_class }} has-prepend {{ end }}">{{ (errors || []).join(', ') }}</span>
+      <span class="md md-close form-control-feedback"></span>
     {{ elsif marked }}
-      <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+      <span class="md md-check form-control-feedback"></span>
     {{ end }}
   </div>

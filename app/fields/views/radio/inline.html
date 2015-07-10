@@ -7,10 +7,10 @@
           {{ option[:label] }}
         </label>
         {{ if errors }}
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="md md-close form-control-feedback"></span>
           <span class="control-label errors">{{ (errors || []).join(', ') }}</span>
         {{ elsif marked }}
-          <span class="glyphicon glyphicon-ok"></span>
+          <span class="md md-check form-control-feedback"></span>
         {{ end }}
       </div>
     {{ end }}

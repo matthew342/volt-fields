@@ -1,24 +1,31 @@
 <:Body>
-  <div class="{{ if errors }}has-error{{ elsif marked }}has-success{{ end }} has-feedback">
+  <div class="{{ if errors }}has-error{{ elsif marked }}has-success{{ end }}">
     {{ if label }}
-      <label class="control-label">{{ label }}</label>
+      <label class="control-label">
+        {{ label }}
+        {{ if errors }}
+          <span class="md md-close radio-feedback"></span>
+        {{ end }}
+      </label>
+    {{ end }}
+    {{ if errors }}
+      <small class="help-block">
+        {{ unless label }}<span class="md md-close radio-feedback"></span>{{ end }}
+        <span class="control-label errors">{{ (errors || []).join(', ') }}</span>
+      </small>
+    {{ elsif marked }}
+      <span class="md md-check form-control-feedback"></span>
     {{ end }}
     {{ options.each do |option| }}
       <div class="radio">
         <label>
-          {{ if attrs.value == option[:value] }}
-            <input type="radio" checked="{{ attrs.value }}" name="{{ name }}" value="{{ option[:value] }}" checked/>
-          {{ else }}
-            <input type="radio" checked="{{ attrs.value }}" name="{{ name }}" value="{{ option[:value] }}"/>
+          {{ if selected?(option) }}
+            <input type="radio" e-click="set(option)" checked name="{{ name }}" value="{{ option[:value] }}"/>
+            {{ else }}
+            <input type="radio" e-click="set(option)" name="{{ name }}" value="{{ option[:value] }}"/>
           {{ end }}
-          {{ option[:label] }}
+          <i class="input-helper"></i>{{ option[:label] }}
         </label>
-        {{ if errors }}
-          <span class="glyphicon glyphicon-remove"></span>
-          <span class="control-label errors">{{ (errors || []).join(', ') }}</span>
-        {{ elsif marked }}
-          <span class="glyphicon glyphicon-ok"></span>
-        {{ end }}
       </div>
     {{ end }}
   </div>
