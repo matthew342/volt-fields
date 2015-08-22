@@ -1,11 +1,17 @@
 <:Body>
-  <div class="{{ if attrs.prepend_class }} input-group {{ else }} form-group {{ end }}{{ if errors }}has-error{{ elsif marked }}has-success{{ end }} has-feedback">
+  <div class="{{ input_class_string }}">
     {{ if attrs.prepend_class }}
       <:fields:addons:prepend prepend_class="{{ attrs.prepend_class }}"/>
     {{ end }}
-    <div class="fg-line">
-      <input type="{{ @type }}" value="{{ attrs.value }}" e-focusout="blur" class="form-control" placeholder="{{ attrs.placeholder }}" />
+    <div class="fg-line {{ toggle_class }}">
+      {{ if attrs.label && attrs.label_type != 'float' }}
+        <label class="control-label">{{ attrs.label }}</label> 
+      {{ end }}
+      <input type="{{ @type }}" value="{{ attrs.value }}" e-focusin="toggle" e-focusout="blur" class="form-control" placeholder="{{ attrs.placeholder }}" />
     </div>
+    {{ if attrs.label && attrs.label_type == 'float' }}
+      <label class="fg-label">{{ attrs.label }}</label>
+    {{ end }}
     {{ if errors }}
       <small class="help-block {{ if attrs.prepend_class }} has-prepend {{ end }}">{{ (errors || []).join(', ') }}</span>
       <span class="md md-close form-control-feedback"></span>
