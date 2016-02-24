@@ -5,7 +5,7 @@
       {{ label }}
     </label>
     {{ if attrs.help_text }}
-      <span class="help-block">{{ attrs.help_text }}</span>
+      <span class="help-block">{{ raw(attrs.help_text) }}</span>
     {{ end }}
     {{ if errors }}
       <span class="glyphicon glyphicon-remove"></span>
