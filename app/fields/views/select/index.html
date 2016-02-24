@@ -14,6 +14,9 @@
           </option>
       {{ end }}
     </select>
+    {{ if attrs.help_text }}
+      <span class="help-block">{{ attrs.help_text }}</span>
+    {{ end }}
     {{ if errors }}
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
       <span class="control-label errors">{{ (errors || []).join(', ') }}</span>
