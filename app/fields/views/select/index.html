@@ -8,10 +8,15 @@
         <option value="" selected>
         </option>
       {{ end }}
-      {{ options.each do |option| }}
-          <option value="{{ option[:value] }}">
-            {{ option[:label] }}
-          </option>
+      {{ optgroups.each do |group_name| }}
+          optgroup_name: {{ group_name }}
+          {{ if group_name != '' }}
+            <optgroup label="{{ group_name }}">
+              <:option_row controller_group="index" value="{{ attrs.value }}" group_options="{{ options(group_name) }}"/>
+            </optgroup>
+          {{ else }}
+            <:option_row controller_group="index" value="{{ attrs.value }}" group_options="{{ options(group_name) }}"/>
+          {{ end }}
       {{ end }}
     </select>
     {{ if attrs.help_text }}
@@ -24,3 +29,17 @@
       <span class="glyphicon glyphicon-ok form-control-feedback"></span>
     {{ end }}
   </div>
+
+<:OptionRow>
+  OptionRow group_options: {{ attrs.group_options }}
+  {{ attrs.group_options.each do |option| }}
+    {{ if option[:value] == attrs.value }}
+      <option value="{{ option[:value] }}" selected>
+        {{ option[:label] }}
+      </option>
+    {{ else }}
+      <option value="{{ option[:value] }}">
+        {{ option[:label] }}
+      </option>
+    {{ end }}
+  {{ end }}

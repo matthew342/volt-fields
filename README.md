@@ -43,7 +43,18 @@ label | A label for the field. Pass 'false' for no label. | Optional | Name of t
 * <:fields:textarea />
 
 #### Select
-Select fields accept either an array of options, or an array of {label: '', value: ''} hashes. You can pass promises and the options will be populated when the promise resolves.
+Select fields accept one of three formats:
+* An array of options
+* An array of label/value hashes, like this:
+```
+  [{label: '', value: ''}]
+```
+* A hash of of ```<optgroup>```s containing arrays of label/value hashes:  
+```
+  {'My First Optgroup': [{label: '', value:''}]}
+```
+
+You can pass promises and the options will be populated when the promise resolves.
 
 ```
 <:fields:select value="{{ model.role }}" options="{{ ['User', 'Admin', 'Something Else']}}"/>
